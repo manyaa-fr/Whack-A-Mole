@@ -1,0 +1,303 @@
+/* 
+COPILOT PROMPT 8: Sound and Visual Effects Prompt
+"Enhance the game with visual effects like button shadows, gradient backgrounds, 
+smooth transitions, and animated mole characters using emoji. Create a modern, polished game interface."
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.game-header {
+    margin-bottom: 30px;
+}
+
+.game-title {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stat {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 120px;
+}
+
+.timer {
+    background: #FF5722;
+}
+
+/* 
+COPILOT PROMPT 2: CSS Grid Layout Prompt
+"Write CSS to create a responsive 3x3 grid layout for whack-a-mole holes. 
+Each hole should be circular, have a brown color scheme, and include hover effects. 
+Make it work on both desktop and mobile devices."
+*/
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hole {
+    width: 100px;
+    height: 100px;
+    background: #8B4513;
+    border-radius: 50%;
+    border: 5px solid #654321;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.hole:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 
+COPILOT PROMPT 3: Mole Animation Prompt
+"Create CSS animations for a mole character that slides up from holes smoothly, 
+includes a hit animation with scaling effect, and a score popup animation that fades in and out above the hole."
+*/
+.mole {
+    width: 80px;
+    height: 80px;
+    background: #8B4513;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.mole::before {
+    content: '🐹';
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mole.show {
+    transform: translate(-50%, -50%);
+}
+
+.mole.hit {
+    animation: hit 0.3s ease;
+}
+
+@keyframes hit {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(0); }
+}
+
+.score-popup {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    opacity: 0;
+    animation: scorePopup 1s ease;
+    pointer-events: none;
+}
+
+@keyframes scorePopup {
+    0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+.controls {
+    margin-top: 30px;
+}
+
+/* 
+COPILOT PROMPT 7: Interactive Feedback Prompt
+"Add interactive user feedback including click animations, score popups that appear when hitting moles, 
+game over screen with final score, and visual states for buttons (disabled, hover, active)."
+*/
+.btn {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.game-over {
+    display: none;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-over.show {
+    display: flex;
+}
+
+.game-over h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.final-score {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #4CAF50;
+}
+
+.difficulty-indicator {
+    background: #9C27B0;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+/* 
+COPILOT PROMPT 6: Mobile Responsiveness Prompt
+"Create responsive CSS media queries for whack-a-mole game that adapts hole sizes, 
+button layouts, and typography for mobile devices under 600px width. Ensure touch-friendly interface elements."
+*/
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .game-title {
+        font-size: 2em;
+    }
+
+    .hole {
+        width: 80px;
+        height: 80px;
+    }
+
+    .mole {
+        width: 65px;
+        height: 65px;
+    }
+
+    .mole::before {
+        font-size: 30px;
+    }
+
+    .game-stats {
+        justify-content: center;
+    }
+
+    .stat {
+        min-width: 100px;
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 400px) {
+    .game-grid {
+        gap: 10px;
+    }
+
+    .hole {
+        width: 70px;
+        height: 70px;
+    }
+
+    .mole {
+        width: 55px;
+        height: 55px;
+    }
+
+    .mole::before {
+        font-size: 25px;
+    }
+}
